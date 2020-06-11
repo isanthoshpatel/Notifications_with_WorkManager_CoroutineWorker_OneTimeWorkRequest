@@ -1,6 +1,8 @@
 package com.example.notifications_with_workmanager_coroutineworker_periadicworkreques
 
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -11,7 +13,7 @@ import java.lang.Exception
 
 class MyWork(c: Context, wp: WorkerParameters) : CoroutineWorker(c, wp) {
 
-
+var i = 0
     override suspend fun doWork(): Result {
 
         try {
@@ -23,6 +25,8 @@ class MyWork(c: Context, wp: WorkerParameters) : CoroutineWorker(c, wp) {
                     .setContentText("how are you dude there.......will you come to there....to have some things...")
                     .setOnlyAlertOnce(true)
                     .setColor(Color.RED)
+                    .setContentIntent(PendingIntent.getActivity(applicationContext,1,
+                        Intent(applicationContext,MainActivity::class.java),0))
                     .setStyle(
                         NotificationCompat.BigTextStyle()
                             .setBigContentTitle("this is big content title")
@@ -31,14 +35,16 @@ class MyWork(c: Context, wp: WorkerParameters) : CoroutineWorker(c, wp) {
                             )
                             .setSummaryText("user1")
                     )
-                    delay(2000)
-                nm.notify(1, n1.build())
+
+                nm.notify(i++, n1.build())
                 var n2 = NotificationCompat.Builder(applicationContext, App.id)
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .setContentTitle("helllo...")
                     .setContentText("how are you dude there.......will you come to there....to have some things...")
                     .setOnlyAlertOnce(true)
                     .setColor(Color.RED)
+                    .setContentIntent(PendingIntent.getActivity(applicationContext,1,
+                        Intent(applicationContext,MainActivity::class.java),0))
                     .setStyle(
                         NotificationCompat.BigTextStyle()
                             .setBigContentTitle("helloooo")
@@ -47,8 +53,8 @@ class MyWork(c: Context, wp: WorkerParameters) : CoroutineWorker(c, wp) {
                             )
                             .setSummaryText("user1")
                     )
-                delay(500)
-                nm.notify(2, n2.build())
+
+                nm.notify(i++, n2.build())
 
 
             return Result.success()

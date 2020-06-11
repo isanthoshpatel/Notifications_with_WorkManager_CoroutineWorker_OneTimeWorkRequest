@@ -14,11 +14,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
 
-
-            var work1 = PeriodicWorkRequest.Builder(MyWork::class.java,10,TimeUnit.MILLISECONDS).build()
-            WorkManager.getInstance(this).enqueue(work1)
-
-
+    override fun onStop() {
+        super.onStop()
+        var work1 = PeriodicWorkRequest.Builder(MyWork::class.java,10,TimeUnit.MILLISECONDS).build()
+        WorkManager.getInstance(this).enqueue(work1)
     }
 }
