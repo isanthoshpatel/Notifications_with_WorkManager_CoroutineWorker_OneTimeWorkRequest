@@ -19,11 +19,10 @@ class MyWork(c: Context, wp: WorkerParameters) : CoroutineWorker(c, wp) {
             //where you have some kind of the manipulations where you have some of the manipulations through which you could have some
             var nm = NotificationManagerCompat.from(applicationContext)
             var n1 = NotificationCompat.Builder(applicationContext, App.id)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+
                 .setContentTitle("helllo...")
                 .setContentText("how are you dude there.......will you come to there....to have some things...")
-                .setOnlyAlertOnce(true)
-                .setColor(Color.RED)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentIntent(
                     PendingIntent.getActivity(
                         applicationContext, 1,
@@ -38,6 +37,9 @@ class MyWork(c: Context, wp: WorkerParameters) : CoroutineWorker(c, wp) {
                         )
                         .setSummaryText("user1")
                 )
+                .setColor(Color.RED)
+                .setOnlyAlertOnce(true)
+
             nm.notify(1, n1.build())
             return Result.success()
         } catch (e: Exception) {

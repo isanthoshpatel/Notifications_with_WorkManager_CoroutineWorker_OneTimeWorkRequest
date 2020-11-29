@@ -8,14 +8,14 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var work1: PeriodicWorkRequest
+    lateinit var work1: OneTimeWorkRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
        bt_mywork.setOnClickListener {
-           work1 = PeriodicWorkRequest.Builder(MyWork::class.java, 10, TimeUnit.MILLISECONDS).setConstraints(
+           work1 = OneTimeWorkRequest.Builder(MyWork::class.java).setConstraints(
                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
            ).build()
            WorkManager.getInstance(this).enqueue(work1)
@@ -24,13 +24,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        work1 = PeriodicWorkRequest.Builder(MyWork::class.java, 10, TimeUnit.MILLISECONDS).build()
+        work1 = OneTimeWorkRequest.Builder(MyWork::class.java).build()
         WorkManager.getInstance(this).enqueue(work1)
     }
 
     override fun onPause() {
         super.onPause()
-        work1 = PeriodicWorkRequest.Builder(MyWork::class.java, 10, TimeUnit.MILLISECONDS).build()
+        work1 = OneTimeWorkRequest.Builder(MyWork::class.java).build()
         WorkManager.getInstance(this).enqueue(work1)
     }
 }
